@@ -18,9 +18,11 @@ int execute(Param_t *params){
 
     pid = fork();
     if(pid == 0){
+        if(params->outputRedirect != NULL)
+            freopen(params->outputRedirect, "w+", stdout);
          execvp(*args, args);
     }else{
-         wpid = wait(&status);
+        wpid = wait(&status);
     }
     return 1;
 }
