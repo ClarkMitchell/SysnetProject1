@@ -1,1 +1,2 @@
-int print_prompt();
+void prompt_loop(void);
+int execute(char **args);
