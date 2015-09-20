@@ -11,7 +11,7 @@ int execute(Param_t *params){
     int status;
     int count = params->argumentCount;
     char **args = params->argumentVector;
-    char *lastArg = args[count - 2];
+    char *lastArg = args[count - 1];
 
     if(strcmp(args[0], "exit") == 0){
         exit(0);
@@ -38,7 +38,7 @@ void prompt_loop(int debug){
         line = read_line();
         params = split_line(line);
         if(debug)
-            printParams(params);
+          printParams(&params);
         status = execute(&params);
     }
     while (status);

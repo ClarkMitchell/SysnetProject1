@@ -13,29 +13,35 @@ char *read_line(void){
 
 Param_t split_line(char *line){
     Param_t params;
+    params.inputRedirect = NULL;
+    params.outputRedirect = NULL;
+    params.background = 0;
     params.argumentCount = 0;
     char *token;
     char *tokens[1024];
     int position = 0;
 
     token = strtok(line, " \n\r");
-    params.argumentCount = 1;
+    //params.argumentCount = 1;
 
     while(token != NULL){
+        params.argumentVector[position] = token;
+        position++;
+        params.argumentCount++;
+
         if(strcmp(token, "<") == 0)
             printf("Input redirect");
         if(strcmp(token, ">") == 0)
             printf("Output redirect");
         if(strcmp(token, "&") == 0)
             printf("background process");
-        params.argumentVector[position] = token;
-        position++;
-        params.argumentCount++;
+
         token = strtok(NULL, " \n\r");
 
     }
 
     params.argumentVector[position] = NULL;
+    //printParams(&params);
     return params;
 }
 
