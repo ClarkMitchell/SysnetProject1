@@ -19,7 +19,7 @@ int execute(Param_t *params){
 
     pid = fork();
     if(pid == 0){
-        execlp(*args, *args);
+        execvp(*args, args);
     }else{
         if(strcmp(lastArg, "&") != 0){ // parent doesnt wait if background process
         wpid = wait(&status);

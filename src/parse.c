@@ -18,7 +18,7 @@ Param_t split_line(char *line){
     char *tokens[1024];
     int position = 0;
 
-    token = strtok(line, " \t\n\a\r");
+    token = strtok(line, " \n\r");
     params.argumentCount = 1;
 
     while(token != NULL){
@@ -31,7 +31,7 @@ Param_t split_line(char *line){
         params.argumentVector[position] = token;
         position++;
         params.argumentCount++;
-        token = strtok(NULL, " \t\n\a\r");
+        token = strtok(NULL, " \n\r");
 
     }
 
