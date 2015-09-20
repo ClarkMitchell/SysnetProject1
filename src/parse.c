@@ -25,23 +25,28 @@ Param_t split_line(char *line){
     //params.argumentCount = 1;
 
     while(token != NULL){
+
         params.argumentVector[position] = token;
         position++;
         params.argumentCount++;
-
-        if(strcmp(token, "<") == 0)
-            printf("Input redirect");
-        if(strcmp(token, ">") == 0)
-            printf("Output redirect");
-        if(strcmp(token, "&") == 0)
-            printf("background process");
-
         token = strtok(NULL, " \n\r");
 
     }
 
+    int i;
+    for(i = 0; i < params.argumentCount; i++){
+        if((strcmp(params.argumentVector[i], ">") == 0) && i < params.argumentCount - 1)
+            params.outputRedirect = params.argumentVector[i + 1];
+        else if(strcmp(params.argumentVector[i], "<") == 0 && params.argumentCount > 1)
+            params.inputRedirect = params.argumentVector[i - 1];
+        else if(strcmp(params.argumentVector[i], "&") == 0)
+            params.background = 1;
+        else
+            continue;
+    }
+
     params.argumentVector[position] = NULL;
-    //printParams(&params);
+    printParams(&params);
     return params;
 }
 
