@@ -11,7 +11,6 @@ int execute(Param_t *params){
     int status;
     int count = params->argumentCount;
     char **args = params->argumentVector;
-    char *lastArg = args[count - 1];
 
     if(strcmp(args[0], "exit") == 0){
         exit(0);
@@ -19,11 +18,9 @@ int execute(Param_t *params){
 
     pid = fork();
     if(pid == 0){
-        execvp(*args, args);
+         execvp(*args, args);
     }else{
-        if(strcmp(lastArg, "&") != 0){ // parent doesnt wait if background process
-        wpid = wait(&status);
-         }
+         wpid = wait(&status);
     }
     return 1;
 }

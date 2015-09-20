@@ -39,14 +39,16 @@ Param_t split_line(char *line){
             params.outputRedirect = params.argumentVector[i + 1];
         else if(strcmp(params.argumentVector[i], "<") == 0 && params.argumentCount > 1)
             params.inputRedirect = params.argumentVector[i - 1];
-        else if(strcmp(params.argumentVector[i], "&") == 0)
+        else if(strcmp(params.argumentVector[i], "&") == 0){
             params.background = 1;
+            params.argumentVector[i] = NULL;
+        }
         else
             continue;
     }
 
     params.argumentVector[position] = NULL;
-    printParams(&params);
+    //printParams(&params);
     return params;
 }
 
