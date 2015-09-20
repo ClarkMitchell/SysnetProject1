@@ -1,2 +1,4 @@
+#include "parse.h"
+
 void prompt_loop(void);
-int execute(char **args);
+int execute(Param_t params);

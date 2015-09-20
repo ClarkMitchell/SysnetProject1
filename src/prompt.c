@@ -6,36 +6,38 @@
 #include <stdlib.h>
 #include "parse.h"
 
-int execute(char **args){
+int execute(Param_t *params){
     pid_t pid, wpid;
     int status;
+    int count = params->argumentCount;
+    char **args = params->argumentVector;
+    char *lastArg = args[count - 2];
 
-    if(strcmp(args[0], "cd") == 0){
-        const char *directory = args[1];
-        int ret;
-        ret = chdir(directory);
+    if(strcmp(args[0], "exit") == 0){
+        exit(0);
     }
-    else{
+
     pid = fork();
     if(pid == 0){
         execlp(*args, *args);
     }else{
+        if(strcmp(lastArg, "&") != 0){ // parent doesnt wait if background process
         wpid = wait(&status);
-    }
+         }
     }
     return 1;
 }
 
 void prompt_loop(void){
     char *line;
-    char **args;
+    Param_t params;
     int status;
 
     do{
         printf("> ");
         line = read_line();
-        args = split_line(line);
-        status = execute(args);
+        params = split_line(line);
+        status = execute(&params);
     }
     while (status);
 }
