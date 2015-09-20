@@ -28,7 +28,7 @@ int execute(Param_t *params){
     return 1;
 }
 
-void prompt_loop(void){
+void prompt_loop(int debug){
     char *line;
     Param_t params;
     int status;
@@ -37,6 +37,8 @@ void prompt_loop(void){
         printf("> ");
         line = read_line();
         params = split_line(line);
+        if(debug)
+            printParams(params);
         status = execute(&params);
     }
     while (status);

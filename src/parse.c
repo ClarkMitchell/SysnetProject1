@@ -38,3 +38,17 @@ Param_t split_line(char *line){
     params.argumentVector[position] = NULL;
     return params;
 }
+
+void printParams(Param_t * param)
+{
+
+    int i;
+    printf ("InputRedirect: [%s]\n",
+        (param->inputRedirect != NULL) ? param->inputRedirect:"NULL");
+    printf ("OutputRedirect: [%s]\n",
+        (param->outputRedirect != NULL) ? param->outputRedirect:"NULL");
+    printf ("Background: [%d]\n", param->background);
+    printf ("ArgumentCount: [%d]\n", param->argumentCount);
+    for (i = 0; i < param->argumentCount; i++)
+        printf("ArgumentVector[%2d]: [%s]\n", i, param->argumentVector[i]);
+}
